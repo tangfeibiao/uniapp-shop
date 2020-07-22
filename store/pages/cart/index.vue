@@ -24,7 +24,7 @@
 			<view class="number">全选({{checkAll}})</view>
 			<view class="lump">
 				<view class="total">合计:<text>￥{{total}}</text></view>
-				<view class="btn">结算</view>
+				<view class="btn" :class="pitchOn == true?'active':''">结算</view>
 			</view>
 		</view>
 	</view>
@@ -44,6 +44,7 @@
 				allactive: false,
 				checkAll: 0,
 				total: 0,
+				pitchOn: false,
 			}
 		},
 		onLoad() {
@@ -59,6 +60,7 @@
 				})
 				this.selectCheck();
 				this.totalCommodityPrice();
+				this.account();
 			},
 			
 			/**
@@ -71,6 +73,7 @@
 				e.number == 0?e.active = false:'';
 				this.selectCheck();
 				this.totalCommodityPrice();
+				this.account();
 			},
 			
 			/**
@@ -80,6 +83,7 @@
 				e.active == false?e.active = true:e.active = false;
 				this.selectCheck();
 				this.totalCommodityPrice();
+				this.account();
 				let number = 0;
 				this.cartList.forEach((item)=>{
 					if(item.active == true){
@@ -106,6 +110,7 @@
 				}
 				this.selectCheck();
 				this.totalCommodityPrice();
+				this.account();
 			},
 			
 			/**
@@ -130,6 +135,21 @@
 					}
 				})
 				this.total = totalNumber.toFixed(2);
+			},
+			
+			/**
+				结算添加选中样式
+			**/
+			account(){
+				this.cartList.forEach((item)=>{
+					let number = 0;
+					this.cartList.forEach((item)=>{
+						if(item.active == true){
+							number++;
+						}
+					})
+					number > 0?this.pitchOn = true:this.pitchOn = false;
+				})
 			},
 		}
 	}
@@ -288,10 +308,13 @@ page{
 	font-size: 18px;
 }
 .bar .lump .btn{
-	width: 110px;
-	background-color: #1ECF8B;
+	width: 120px;
 	text-align: center;
 	line-height: 50px;
 	color: #FFFFFF;
+	background-color: #C0C0C0;
+}
+.bar .lump .btn.active{
+	background-color: #1ECF8B;
 }
 </style>
