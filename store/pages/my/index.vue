@@ -382,7 +382,7 @@
 				.my-item-name {
 					width: 40%;
 					padding-left: 40rpx;
-					font-size: 18px;
+					font-size: 16px;
 					display: inline-block;
 				}
 
@@ -393,7 +393,7 @@
 
 					.item-decription-name {
 						color: rgba(0, 0, 0, 0.6);
-						font-size: 16px;
+						font-size: 14px;
 						padding-right: 40rpx;
 						display: inline-block;
 					}
