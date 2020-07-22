@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="item">
 			<view class="item-list" v-for="(item,index) in cartList" :key="index" v-if="item.number > 0">
-				<view class="select" :class="item.active == true?'active':''"></view>
+				<view class="select" :class="item.active == true?'active':''" @click="selectActive(item)"></view>
 				<view class="item-text">
 					<view class="item-image"><image src="../../static/commodity.png" mode="widthFix"></image></view>
 					<view class="item-chunk">
@@ -10,9 +10,9 @@
 						<view class="chunk">
 							<text class="price">￥<text>{{item.price}}</text></text>
 							<view class="count">
-								<view class="jian">-</view>
+								<view class="jian" @click="clickJian(item)">-</view>
 								<view class="number">{{item.number}}</view>
-								<view class="jia">+</view>
+								<view class="jia" @click="clickJia(item)">+</view>
 							</view>
 						</view>
 					</view>
@@ -20,7 +20,12 @@
 			</view>
 		</view>
 		<view class="bar">
-			<view class="select"></view>
+			<view class="select" @click="allActive" :class="allactive == true?'active':''"></view>
+			<view class="number">全选({{checkAll}})</view>
+			<view class="lump">
+				<view class="total">合计:<text>￥{{total}}</text></view>
+				<view class="btn">结算</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -35,14 +40,97 @@
 					{id: 3, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false},
 					{id: 4, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false},
 					{id: 5, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false}
-				]
+				],
+				allactive: false,
+				checkAll: 0,
+				total: 0,
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
+			/**
+				购物车加法计算
+			**/
+			clickJia(e){
+				this.cartList.forEach((item)=>{
+					item.id == e.id?item.number++:'';
+				})
+				this.selectCheck();
+				this.totalCommodityPrice();
+			},
 			
+			/**
+				购物车减法计算
+			**/
+			clickJian(e){
+				this.cartList.forEach((item)=>{
+					item.id == e.id?item.number--:'';
+				})
+				e.number == 0?e.active = false:'';
+				this.selectCheck();
+				this.totalCommodityPrice();
+			},
+			
+			/**
+				单个商品选中
+			**/
+			selectActive(e){
+				e.active == false?e.active = true:e.active = false;
+				this.selectCheck();
+				this.totalCommodityPrice();
+				let number = 0;
+				this.cartList.forEach((item)=>{
+					if(item.active == true){
+						number++;
+					}
+				})
+				number == this.cartList.length?this.allactive = true:'';
+			},
+			
+			/**
+				商品全选
+			**/
+			allActive(){
+				if(this.allactive == false){
+					this.cartList.forEach((item)=>{
+						item.active = true;
+					})
+					this.allactive = true;
+				}else{
+					this.cartList.forEach((item)=>{
+						item.active = false;
+					})
+					this.allactive = false;
+				}
+				this.selectCheck();
+				this.totalCommodityPrice();
+			},
+			
+			/**
+				全选商品个数计算
+			**/
+			selectCheck(){
+				let number = 0;
+				this.cartList.forEach((item)=>{
+					item.active == true?number++:this.allactive = false; 
+				})
+				this.checkAll = number;
+			},
+			
+			/**
+				选中商品总价计算
+			**/
+			totalCommodityPrice(){
+				let totalNumber = 0;
+				this.cartList.forEach((item)=>{
+					if(item.active == true){
+						totalNumber += item.number * parseFloat(item.price);
+					}
+				})
+				this.total = totalNumber.toFixed(2);
+			},
 		}
 	}
 </script>
@@ -55,6 +143,7 @@ page{
 	position: absolute;
 	height: calc(100% - 50px);
 	overflow: auto;
+	width: 100%;
 }
 .item-list{
 	background-color: #FFFFFF;
@@ -73,6 +162,7 @@ page{
 	position: absolute;
 	top: 50%;
 	margin-top: -8.5px;
+	z-index: 9999;
 }
 .item-list .select.active{
 	background-image: url(../../static/select.png);
@@ -163,5 +253,45 @@ page{
 	border: 1px solid #EEEEEE;
 	margin-top: 16.5px;
 	margin-left: 10px;
+	display: inline-block;
+	float: left;
+}
+.bar .select.active{
+	background-image: url(../../static/select.png);
+	background-size: 100% 100%;
+	border: 0;
+}
+.bar .number{
+	display: inline-block;
+	float: left;
+	height: 20px;
+	line-height: 20px;
+	margin-top: 15px;
+	margin-left: 10px;
+}
+.bar .lump{
+	display: inline-block;
+	float: right;
+	height: 50px;
+}
+.bar .lump view{
+	display: inline-block;
+	float: left;
+	height: 100%;
+}
+.bar .lump .total{
+	line-height: 50px;
+	margin-right: 10px;
+}
+.bar .lump .total text{
+	color: #EA2A39;
+	font-size: 18px;
+}
+.bar .lump .btn{
+	width: 110px;
+	background-color: #1ECF8B;
+	text-align: center;
+	line-height: 50px;
+	color: #FFFFFF;
 }
 </style>

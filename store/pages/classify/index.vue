@@ -54,7 +54,8 @@
 			
 		},
 		onShow(){
-			uni.getStorageSync('MenuId')?this.MenuActive = uni.getStorageSync('MenuId'):'';
+			uni.getStorageSync('MenuId')?this.MenuActive = uni.getStorageSync('MenuId'):this.MenuActive = 1;
+			uni.removeStorageSync('MenuId');
 		},
 		methods: {
 			/**
