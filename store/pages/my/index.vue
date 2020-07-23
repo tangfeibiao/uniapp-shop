@@ -11,12 +11,17 @@
 							{{userInfo.nickName}}
 						</view>
 						<view class="profile-mobile">
-							{{userInfo.mobile}}
+							{{encryptTel}}
 						</view>
 					</view>
-					<view class="profile-daily-check">
+					<view class="profile-daily-check" v-if="!userInfo.isDailyCheckIn">
 						<view class="daily-check-button">
 							马上签到
+						</view>
+					</view>
+					<view class="profile-daily-check" v-else>
+						<view class="daily-check-button">
+							已签到
 						</view>
 					</view>
 				</view>
@@ -24,7 +29,7 @@
 					<view class="profile-extra-list">
 						<view class="profile-extra-item">
 							<view class="profile-extra-item-number">
-								23
+								{{userInfo.history}}
 							</view>
 							<view class="profile-extra-item-name">
 								历史
@@ -32,7 +37,7 @@
 						</view>
 						<view class="profile-extra-item">
 							<view class="profile-extra-item-number">
-								14
+								{{userInfo.collect}}
 							</view>
 							<view class="profile-extra-item-name">
 								收藏
@@ -40,7 +45,7 @@
 						</view>
 						<view class="profile-extra-item">
 							<view class="profile-extra-item-number">
-								56
+								{{userInfo.focus}}
 							</view>
 							<view class="profile-extra-item-name">
 								关注
@@ -48,7 +53,7 @@
 						</view>
 						<view class="profile-extra-item">
 							<view class="profile-extra-item-number">
-								27
+								{{userInfo.coupon}}
 							</view>
 							<view class="profile-extra-item-name">
 								优惠卷
@@ -207,6 +212,13 @@
 		onLoad() {
 
 		},
+		computed: {
+			encryptTel: function() {
+				// `this` 指向 vm 实例
+				return this.userInfo ? (this.userInfo.mobile.substr(0, 3) + '****' + this.userInfo.mobile.substr(7,this.userInfo
+					.mobile.length)) : ''
+			}
+		},
 		methods: {
 
 		}
@@ -249,11 +261,12 @@
 				.profile-content {
 					height: 50rpx;
 					color: white;
-
 					padding-left: 20rpx;
 					font-size: 16px;
 					font-weight: bold;
 					display: inline-block;
+					position: relative;
+					top: -25%;
 
 					.profile-mobile {
 						padding-top: 10rpx;
@@ -266,6 +279,7 @@
 					float: right;
 					padding-right: 20rpx;
 					padding-top: 20rpx;
+					text-align: center;
 
 					.daily-check-button {
 						border: 1px solid white;
@@ -371,8 +385,8 @@
 					widows: 10%;
 
 					.my-item-icon {
-						width: 50rpx;
-						height: 50rpx;
+						width: 40rpx;
+						height: 40rpx;
 						padding-left: 20rpx;
 						vertical-align: middle;
 						display: inline-block;
@@ -401,6 +415,7 @@
 					.item-decription-icon {
 						display: inline-block;
 						float: right;
+						margin-top: 5rpx;
 
 						.title-icon {
 							position: inherit;
