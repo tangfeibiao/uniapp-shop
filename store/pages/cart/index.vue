@@ -39,7 +39,9 @@
 					{id: 2, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false},
 					{id: 3, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false},
 					{id: 4, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false},
-					{id: 5, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false}
+					{id: 5, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false},
+					{id: 6, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false},
+					{id: 7, name: '巫山二级李子 1.25kg/盒(约40-43颗)', price: '22.00', number: 1, active: false}
 				],
 				allactive: false,
 				checkAll: 0,
