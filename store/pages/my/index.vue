@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<view class="my-header">
+		<view class="my-header"  @click="addcss">
 			<view class="my-profile">
 				<view class="profile">
 					<view class="profile-img">
@@ -215,12 +215,17 @@
 		computed: {
 			encryptTel: function() {
 				// `this` 指向 vm 实例
-				return this.userInfo ? (this.userInfo.mobile.substr(0, 3) + '****' + this.userInfo.mobile.substr(7,this.userInfo
+				return this.userInfo ? (this.userInfo.mobile.substr(0, 3) + '****' + this.userInfo.mobile.substr(7, this.userInfo
 					.mobile.length)) : ''
 			}
 		},
 		methods: {
-
+			addcss() {
+				console.log('1111111');
+				uni.navigateTo({
+					url: "/pages/address/index"
+				});
+			}
 		}
 	}
 </script>

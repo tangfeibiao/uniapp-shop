@@ -29,6 +29,12 @@
 			"style": {
 				"navigationBarTitleText": "商品"
 			}
+		},
+		{
+			"path": "pages/address/index",
+			"style": {
+				"navigationBarTitleText": "地址"
+			}
 		}
 	],
 	"tabBar": {
