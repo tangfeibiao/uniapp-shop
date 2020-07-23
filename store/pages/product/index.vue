@@ -79,109 +79,25 @@
 				<view class="item-title">商品评价</view>
 				<view class="item-content">
 					<view class="product-comment-list">
-						<view class="comment-item">
+						<view class="comment-item" v-for='(item,index) in productInfo.commentList' :key='index'>
 							<view class="comment-person">
 								<view class="comment-person-detail">
 									<view class="person-avatar">
-										<image src="../../static/icon/my.png" mode="widthFix" class="person-avatar-img"></image>
+										<image :src="item.avatar" mode="widthFix" class="person-avatar-img"></image>
 									</view>
 									<view class="person-name">
-										唐伯虎
+										{{item.username}}
 									</view>
 									<view class="person-star">
-										五颗星
+										{{item.star}}
 									</view>
 								</view>
 								<view class="comment-time">
-									2019-3-14 17：11
+									{{item.datetime}}
 								</view>
 							</view>
 							<view class="comment-content">
-								商品非常好商品非常好商品非常好商品非常好商品非常好商品非常好
-							</view>
-						</view>
-						<view class="comment-item">
-							<view class="comment-person">
-								<view class="comment-person-detail">
-									<view class="person-avatar">
-										<image src="../../static/icon/my.png" mode="widthFix" class="person-avatar-img"></image>
-									</view>
-									<view class="person-name">
-										唐伯虎
-									</view>
-									<view class="person-star">
-										五颗星
-									</view>
-								</view>
-								<view class="comment-time">
-									2019-3-14 17：11
-								</view>
-							</view>
-							<view class="comment-content">
-								商品非常好商品非常好商品非常好商品非常好商品非常好商品非常好
-							</view>
-						</view>
-						<view class="comment-item">
-							<view class="comment-person">
-								<view class="comment-person-detail">
-									<view class="person-avatar">
-										<image src="../../static/icon/my.png" mode="widthFix" class="person-avatar-img"></image>
-									</view>
-									<view class="person-name">
-										唐伯虎
-									</view>
-									<view class="person-star">
-										五颗星
-									</view>
-								</view>
-								<view class="comment-time">
-									2019-3-14 17：11
-								</view>
-							</view>
-							<view class="comment-content">
-								商品非常好商品非常好商品非常好商品非常好商品非常好商品非常好
-							</view>
-						</view>
-						<view class="comment-item">
-							<view class="comment-person">
-								<view class="comment-person-detail">
-									<view class="person-avatar">
-										<image src="../../static/icon/my.png" mode="widthFix" class="person-avatar-img"></image>
-									</view>
-									<view class="person-name">
-										唐伯虎
-									</view>
-									<view class="person-star">
-										五颗星
-									</view>
-								</view>
-								<view class="comment-time">
-									2019-3-14 17：11
-								</view>
-							</view>
-							<view class="comment-content">
-								商品非常好商品非常好商品非常好商品非常好商品非常好商品非常好
-							</view>
-						</view>
-						<view class="comment-item">
-							<view class="comment-person">
-								<view class="comment-person-detail">
-									<view class="person-avatar">
-										<image src="../../static/icon/my.png" mode="widthFix" class="person-avatar-img"></image>
-									</view>
-									<view class="person-name">
-										唐伯虎
-									</view>
-									<view class="person-star">
-										五颗星
-									</view>
-								</view>
-								<view class="comment-time">
-									2019-3-14 17：11
-								</view>
-							</view>
-							<view class="comment-content">
-								商品非常好商品非常好商品非常好商品非常好商品非常好商品非常好
+								{{item.comment}}
 							</view>
 						</view>
 					</view>
@@ -219,6 +135,35 @@
 					priceDiscount: 9.8,
 					storage: 102,
 					isDiscount: true,
+					commentList: [{
+							username: '唐伯虎',
+							avatar: '../../static/icon/my.png',
+							datetime: '2019-3-14 17:11',
+							star: '一颗星',
+							comment: '商品非常好商品非常好商品非常好商品非常好商品非常好商品非常好'
+						},
+						{
+							username: '唐伯虎',
+							avatar: '../../static/icon/my.png',
+							datetime: '2019-3-14 17:11',
+							star: '二颗星',
+							comment: '商品非常好商品非常好商品非常好商品非常好商品非常好商品非常好'
+						},
+						{
+							username: '唐伯虎',
+							avatar: '../../static/icon/my.png',
+							datetime: '2019-3-14 17:11',
+							star: '三颗星',
+							comment: '商品非常好商品非常好商品非常好商品非常好商品非常好商品非常好'
+						},
+						{
+							username: '唐伯虎',
+							avatar: '../../static/icon/my.png',
+							datetime: '2019-3-14 17:11',
+							star: '四颗星',
+							comment: '商品非常好商品非常好商品非常好商品非常好商品非常好商品非常好'
+						},
+					]
 
 				}
 			}
@@ -253,6 +198,7 @@
 
 			td {
 				border: 1px solid #999999;
+				padding: 20rpx;
 			}
 		}
 	}
@@ -360,7 +306,7 @@
 			.comment-item {
 				padding-top: 40rpx;
 				padding-bottom: 40rpx;
-				border-bottom: 1px solid #999999;
+				border-bottom: 1px dashed  #999999;
 
 				&:last-child {
 					border-bottom: none;
